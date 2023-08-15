@@ -6,7 +6,6 @@
 - 例えば：アクセス権を確認してファイルに書き込む
 */
 
-
 function proceduralCohesion(fileName: string) {
   if(!existFile(fileName)) {throw new Error("File not found")}
   if(!checkPermission(fileName)) {throw new Error("Permission denied")}

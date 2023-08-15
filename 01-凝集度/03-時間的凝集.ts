@@ -7,7 +7,6 @@
 - 例えば：初期化処理など
 */
 
-
 function temporalCohesion() {
   const config = initConfig()
   const db = initLogger()

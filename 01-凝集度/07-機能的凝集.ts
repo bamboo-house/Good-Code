@@ -5,7 +5,6 @@
 - 例えば：数値を2倍にする
 */
 
-
 function functionalCohesion(num: number): number {
   const result = num * 2
   return result
