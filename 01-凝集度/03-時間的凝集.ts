@@ -38,3 +38,6 @@ function badTemporalCohesion(logFileName: string) {
 
   return config, db, logger
 }
+
+// 時間的凝集は、可能ならば手続的凝集、通信的凝集、逐次的凝集にする。
+// これらのモジュールは、機能的凝集の集まりにする。
