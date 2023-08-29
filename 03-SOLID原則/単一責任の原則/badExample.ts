@@ -19,6 +19,19 @@ class Employee {
   }
 
   // 人事部門がアクター
+  reportHours() {
+    this.getRegularHours();
+    console.log(`${this.name}の労働時間をレポートしました`);
+  }
 
   // データベース管理者がアクター
+  save() {
+    console.log(`${this.name}の情報をデータベースに保存しました`);
+
+  }
+
+  private getRegularHours() {
+    // 仕様変更前
+    console.log("経理部門・人事部門が共通で使う処理")
+  }
 }
