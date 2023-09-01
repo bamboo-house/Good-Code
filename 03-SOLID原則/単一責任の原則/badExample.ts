@@ -35,3 +35,15 @@ class Employee {
     console.log("経理部門・人事部門が共通で使う処理")
   }
 }
+
+function run() {
+  const emp = new Employee("山田", "経理");
+
+  console.log("経理部門がアクターの処理");
+  emp.calculatePay();
+
+  console.log("人事部門がアクターの処理");
+  emp.reportHours();
+}
+
+run();
