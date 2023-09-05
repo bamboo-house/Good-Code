@@ -1,5 +1,9 @@
 ## 凝集度まとめ
 
+[オブジェクト指向のその前に凝集度と結合度](https://speakerdeck.com/sonatard/coheision-coupling)
+
+[良いコードとは何か（サイバーエージェント）](https://speakerdeck.com/moriatsushi/liang-ikodotohahe-ka-enziniaxin-zu-yan-xiu-suraidogong-kai)
+
 偶発的凝集
 - 必ず避ける
 
