@@ -6,7 +6,7 @@ export {}
 - フォルダの中にファイルとフォルダどちらも置きたい、みたいなとき
 - それぞれのオブジェクトは同一視できる。つまり、クライアントはフォルダかファイルかを意識しなくてもいい
 - クライアントが単純な要素と複雑な要素を同等に扱えるようにする
-- 具体的な実装方法：https://refactoring.guru/ja/design-patterns/composite
+- 具体的な実装方法：https://refactoring.guru/ja/design-patterns/composite https://refactoring.guru/ja/design-patterns/composite/typescript/example
 */
 
 abstract class Entry {
