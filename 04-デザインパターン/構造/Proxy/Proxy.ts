@@ -1,5 +1,12 @@
 export {}
 
+/*
+- Proxyパターン
+- あるオブジェクトにアクセスするための代理人を提供する
+- 例：遅延初期化、ロギング、アクセス制御、キャッシュ処理など
+- Proxyクラスのメソッド内で事前処理などを行い、RealServerクラスのメソッドを呼び出す
+*/
+
 interface Server {
   handle(userId: string): any;
 }
