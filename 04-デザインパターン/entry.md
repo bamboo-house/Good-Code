@@ -8,6 +8,13 @@
 	- MVP開発のために、最初はシンプルに作ろう（YAGNI原則）
 	- リリース後、リファクタリングのターゲットとしてデザインパターンを使おう
 	- リファクタリングのターゲットとしてデザインパターン。方向付けと語彙
+
+
+参考
+https://www.techscore.com/tech/DesignPattern/Prototype
+https://refactoring.guru/ja/design-patterns/facade
+https://www.udemy.com/course/typescript-solid-design-patterns/learn/lecture/34318282#content
+ 
   
 コア：最も多く使われるパターン、日々の業務でしょっちゅう出てくる
 （構造）
