@@ -2,10 +2,24 @@ export {}
 
 /*
 - Commandパターン
+- 命令（メソッド）を独立したオブジェクトとして表現する
+- 命令をオブジェクトとして表現することで、ネットワークを通してコマンドを送信できたり、ログに記録したりできる
+- 命令の実行を行うオブジェクトと命令の受け手を分離する
+- 送り手と受け手との間で単方向の接続を確立する
+- Commandは命令をカプセル化して、順序操作や受け渡しなどを可能にする。Strategyはアルゴリズムをカプセル化して、切り替え可能にする。
+- 登場クラス：Sender, Receiver, Command
+- クライアントの動き
+  - Receiverを作成
+  - ReceiverをCommandに注入して、Commandを作成
+  - Senderを作成し、Commandを追加する
+- 使う場面
+  - 操作を待ち行列に入れたり、実行をスケジュールしたり、リモートで実行したい時
+  - undo/redoを実装したい時
 
 */
 
 
+// Receiver
 class File {
   constructor(private name: string) {}
 
@@ -22,6 +36,7 @@ class File {
   }
 }
 
+// Command
 interface Command {
   execute(): void
 }
@@ -48,6 +63,7 @@ class CloseCommand implements Command {
   }
 }
 
+// Sender
 class Queue {
   private commands: Command[] = []
 
