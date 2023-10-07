@@ -11,12 +11,15 @@
 
 
 参考
+
 https://www.techscore.com/tech/DesignPattern/Prototype
 https://refactoring.guru/ja/design-patterns/facade
+
 https://www.udemy.com/course/typescript-solid-design-patterns/learn/lecture/34318282#content
  
   
 コア：最も多く使われるパターン、日々の業務でしょっちゅう出てくる
+
 （構造）
 - Composite（全体と部分の同一視、1とNの同一視）
 - Proxy
@@ -34,6 +37,7 @@ https://www.udemy.com/course/typescript-solid-design-patterns/learn/lecture/3431
 - Dependency Injection
 
 フェリフェラル（あまり使わない、コアではない）
+
 （振る舞い）
 - Mediato
 - Visitor
