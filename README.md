@@ -4,4 +4,5 @@
 
 
 bun install
+
 bun run hoge
