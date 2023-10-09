@@ -1,33 +1,7 @@
-const plays = {
-  "hamlet": { "name": "Hamlet", "type": "tragedy" },
-  "as-like": { "name": "As You Like It", "type": "comedy" },
-  "othello": { "name": "Othllo", "type": "tragedy"}
-}
-
-const invoices = [
-  {
-    "customer": "BigCo",
-    "performances": [
-      {
-        "playID": "hamlet",
-        "audience": 55
-      },
-      {
-        "playID": "as-like",
-        "audience": 35
-      },
-      {
-        "playID": "othello",
-        "audience": 40
-      }
-    ]
-  }
-]
-
-type Invoices = typeof invoices[0]
+type Invoices = { customer: string, performances: { playID: string, audience: number }[] }
 type Plays = {[key: string]: { name: string, type: string }}
 
-function statement(invoice: Invoices, plays: Plays) {
+export function statement(invoice: Invoices, plays: Plays) {
   let totalAmount = 0
   let volumeCredits = 0
   let result = `Statement for ${invoice.customer}\n`
