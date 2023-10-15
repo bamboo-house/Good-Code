@@ -12,16 +12,16 @@ export function statement(invoice: Invoices, plays: Plays) {
     volumeCredits += volumeCreditsFor(perf);
 
     // 注文の内訳を出力
-    result += ` ${playFor(perf).name}: ${format(amountFor(perf) / 100)} (${perf.audience} seats)\n`
+    result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`
     totalAmount += amountFor(perf);
   }
-  result += `Amount owed is ${format(totalAmount / 100)}\n`
+  result += `Amount owed is ${usd(totalAmount)}\n`
   result += `You earned ${volumeCredits} credits\n`
   return result
 
-  function format(aNumber: number) {
+  function usd(aNumber: number) {
     return new Intl.NumberFormat("en-US",
-      {style: "currency", currency: "USD", minimumFractionDigits: 2}).format(aNumber);
+      {style: "currency", currency: "USD", minimumFractionDigits: 2}).format(aNumber / 100);
   }
 
   function volumeCreditsFor(aPerformance: Perf) {
