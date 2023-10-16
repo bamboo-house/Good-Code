@@ -1,15 +1,17 @@
-type Perf = { playID: string, audience: number, play?: Play }
+type Perf = { playID: string, audience: number }
 type Invoices = { customer: string, performances: Perf[] }
 type Play = { name: string, type: string }
 type Plays = {[key: string]: Play}
 
+type enrichPerf = { playID: string, audience: number, play: Play }
+type statementData = { customer: string, performances: enrichPerf[] }
+
 export function statement(invoice: Invoices, plays: Plays) {
   const statementData = { customer: invoice.customer, performances: invoice.performances.map(enrichPerformance) };
-  return renderPlainText(statementData, invoice, plays)
+  return renderPlainText(statementData, plays)
 
-  function enrichPerformance(aPerformance: Perf) {
-    const result = Object.assign({}, aPerformance);
-    result.play = playFor(result);
+  function enrichPerformance(aPerformance: Perf): enrichPerf {
+    const result  = Object.assign({}, { ...aPerformance, play: playFor(aPerformance) });
     return result;
   }
 
@@ -18,7 +20,7 @@ export function statement(invoice: Invoices, plays: Plays) {
   }
 }
 
-function renderPlainText(data: Invoices, invoice: Invoices, plays: Plays) {
+function renderPlainText(data: statementData, plays: Plays) {
   let result = `Statement for ${data.customer}\n`
 
   for (let perf of data.performances) {
