@@ -1,4 +1,4 @@
-type Perf = { playID: string, audience: number }
+type Perf = { playID: string, audience: number, play?: Play }
 type Invoices = { customer: string, performances: Perf[] }
 type Play = { name: string, type: string }
 type Plays = {[key: string]: Play}
@@ -9,7 +9,12 @@ export function statement(invoice: Invoices, plays: Plays) {
 
   function enrichPerformance(aPerformance: Perf) {
     const result = Object.assign({}, aPerformance);
+    result.play = playFor(result);
     return result;
+  }
+
+  function playFor(aPerformance: Perf): Play {
+    return plays[aPerformance.playID];
   }
 }
 
@@ -51,10 +56,6 @@ function renderPlainText(data: Invoices, invoice: Invoices, plays: Plays) {
       result += amountFor(perf);
     }
     return result
-  }
-
-  function playFor(aPerformance: Perf): Play {
-    return plays[aPerformance.playID];
   }
 
   function amountFor(aPerformance: Perf): number {
