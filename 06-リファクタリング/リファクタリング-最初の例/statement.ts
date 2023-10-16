@@ -10,12 +10,20 @@ type EnrichPerf = {
   amount: number;
   volumeCredits: number;
 };
-type statementData = { customer: string; performances: EnrichPerf[] };
+type statementData = {
+  customer: string;
+  performances: EnrichPerf[];
+  totalAmount: number;
+  totalVolumeCredits: number;
+};
 
 export function statement(invoice: Invoices, plays: Plays) {
+  const enrichPerf = invoice.performances.map(enrichPerformance);
   const statementData = {
     customer: invoice.customer,
-    performances: invoice.performances.map(enrichPerformance),
+    performances: enrichPerf,
+    totalAmount: totalAmount(enrichPerf),
+    totalVolumeCredits: totalVolumeCredits(enrichPerf),
   };
   return renderPlainText(statementData);
 
@@ -66,6 +74,22 @@ export function statement(invoice: Invoices, plays: Plays) {
       result += Math.floor(aPerformance.audience / 5);
     return result;
   }
+
+  function totalVolumeCredits(enrichPerf: EnrichPerf[]) {
+    let result = 0;
+    for (let perf of enrichPerf) {
+      result += perf.volumeCredits;
+    }
+    return result;
+  }
+
+  function totalAmount(enrichPerf: EnrichPerf[]) {
+    let result = 0;
+    for (let perf of enrichPerf) {
+      result += perf.amount;
+    }
+    return result;
+  }
 }
 
 function renderPlainText(data: statementData) {
@@ -78,8 +102,8 @@ function renderPlainText(data: statementData) {
     } seats)\n`;
   }
 
-  result += `Amount owed is ${usd(totalAmount())}\n`;
-  result += `You earned ${totalVolumeCredits()} credits\n`;
+  result += `Amount owed is ${usd(data.totalAmount)}\n`;
+  result += `You earned ${data.totalVolumeCredits} credits\n`;
   return result;
 
   function usd(aNumber: number) {
@@ -88,21 +112,5 @@ function renderPlainText(data: statementData) {
       currency: "USD",
       minimumFractionDigits: 2,
     }).format(aNumber / 100);
-  }
-
-  function totalVolumeCredits() {
-    let result = 0;
-    for (let perf of data.performances) {
-      result += perf.volumeCredits;
-    }
-    return result;
-  }
-
-  function totalAmount() {
-    let result = 0;
-    for (let perf of data.performances) {
-      result += perf.amount;
-    }
-    return result;
   }
 }
