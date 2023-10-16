@@ -4,6 +4,10 @@ type Play = { name: string, type: string }
 type Plays = {[key: string]: Play}
 
 export function statement(invoice: Invoices, plays: Plays) {
+  return renderPlainText(invoice, plays)
+}
+
+function renderPlainText(invoice: Invoices, plays: Plays) {
   let result = `Statement for ${invoice.customer}\n`
 
   for (let perf of invoice.performances) {
