@@ -8,6 +8,7 @@ type EnrichPerf = {
   audience: number;
   play: Play;
   amount: number;
+  volumeCredits: number;
 };
 type statementData = { customer: string; performances: EnrichPerf[] };
 
@@ -25,6 +26,7 @@ export function statement(invoice: Invoices, plays: Plays) {
         ...aPerformance,
         play: playFor(aPerformance),
         amount: amountFor(aPerformance),
+        volumeCredits: volumeCreditsFor(aPerformance),
       }
     );
     return result;
@@ -56,6 +58,14 @@ export function statement(invoice: Invoices, plays: Plays) {
     }
     return result;
   }
+
+  function volumeCreditsFor(aPerformance: Perf) {
+    let result = 0;
+    result += Math.max(aPerformance.audience - 30, 0);
+    if ("comedy" === playFor(aPerformance).type)
+      result += Math.floor(aPerformance.audience / 5);
+    return result;
+  }
 }
 
 function renderPlainText(data: statementData) {
@@ -83,16 +93,8 @@ function renderPlainText(data: statementData) {
   function totalVolumeCredits() {
     let result = 0;
     for (let perf of data.performances) {
-      result += volumeCreditsFor(perf);
+      result += perf.volumeCredits;
     }
-    return result;
-  }
-
-  function volumeCreditsFor(aPerformance: EnrichPerf) {
-    let result = 0;
-    result += Math.max(aPerformance.audience - 30, 0);
-    if ("comedy" === aPerformance.play.type)
-      result += Math.floor(aPerformance.audience / 5);
     return result;
   }
 
