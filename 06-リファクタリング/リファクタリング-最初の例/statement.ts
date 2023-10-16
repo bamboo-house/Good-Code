@@ -4,8 +4,13 @@ type Play = { name: string, type: string }
 type Plays = {[key: string]: Play}
 
 export function statement(invoice: Invoices, plays: Plays) {
-  const statementData = { customer: invoice.customer, performances: invoice.performances };
+  const statementData = { customer: invoice.customer, performances: invoice.performances.map(enrichPerformance) };
   return renderPlainText(statementData, invoice, plays)
+
+  function enrichPerformance(aPerformance: Perf) {
+    const result = Object.assign({}, aPerformance);
+    return result;
+  }
 }
 
 function renderPlainText(data: Invoices, invoice: Invoices, plays: Plays) {
