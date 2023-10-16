@@ -4,14 +4,14 @@ type Play = { name: string, type: string }
 type Plays = {[key: string]: Play}
 
 export function statement(invoice: Invoices, plays: Plays) {
-  const statementData = { customer: invoice.customer };
+  const statementData = { customer: invoice.customer, performances: invoice.performances };
   return renderPlainText(statementData, invoice, plays)
 }
 
-function renderPlainText(data: { customer: string }, invoice: Invoices, plays: Plays) {
+function renderPlainText(data: Invoices, invoice: Invoices, plays: Plays) {
   let result = `Statement for ${data.customer}\n`
 
-  for (let perf of invoice.performances) {
+  for (let perf of data.performances) {
     // 注文の内訳を出力
     result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`
   }
@@ -34,7 +34,7 @@ function renderPlainText(data: { customer: string }, invoice: Invoices, plays: P
 
   function totalVolumeCredits() {
     let result = 0;
-    for (let perf of invoice.performances) {
+    for (let perf of data.performances) {
       result += volumeCreditsFor(perf);
     }
     return result;
@@ -42,7 +42,7 @@ function renderPlainText(data: { customer: string }, invoice: Invoices, plays: P
 
   function totalAmount() {
     let result = 0
-    for (let perf of invoice.performances) {
+    for (let perf of data.performances) {
       result += amountFor(perf);
     }
     return result
