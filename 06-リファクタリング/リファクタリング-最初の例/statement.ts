@@ -76,19 +76,11 @@ export function statement(invoice: Invoices, plays: Plays) {
   }
 
   function totalVolumeCredits(enrichPerf: EnrichPerf[]) {
-    let result = 0;
-    for (let perf of enrichPerf) {
-      result += perf.volumeCredits;
-    }
-    return result;
+    return enrichPerf.reduce((total, p) => total + p.volumeCredits, 0);
   }
 
   function totalAmount(enrichPerf: EnrichPerf[]) {
-    let result = 0;
-    for (let perf of enrichPerf) {
-      result += perf.amount;
-    }
-    return result;
+    return enrichPerf.reduce((total, p) => total + p.amount, 0);
   }
 }
 
