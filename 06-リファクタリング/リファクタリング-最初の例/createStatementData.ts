@@ -1,8 +1,9 @@
 import { EnrichPerf, Invoices, Perf, Play, Plays } from "./statement";
 
 class PerformanceCalculator {
-  constructor(private aPerformance: Perf) {
+  constructor(public aPerformance: Perf, public aPlay: Play) {
     this.aPerformance = aPerformance;
+    this.aPlay = aPlay;
   }
 }
 
@@ -17,12 +18,15 @@ export function createStatementData(invoice: Invoices, plays: Plays) {
   return result;
 
   function enrichPerformance(aPerformance: Perf): EnrichPerf {
-    const calculator = new PerformanceCalculator(aPerformance);
+    const calculator = new PerformanceCalculator(
+      aPerformance,
+      playFor(aPerformance)
+    );
     const result = Object.assign(
       {},
       {
         ...aPerformance,
-        play: playFor(aPerformance),
+        play: calculator.aPlay,
         amount: amountFor(aPerformance),
         volumeCredits: volumeCreditsFor(aPerformance),
       }
