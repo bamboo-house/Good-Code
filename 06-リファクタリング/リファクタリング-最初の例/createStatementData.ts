@@ -4,16 +4,7 @@ class PerformanceCalculator {
   constructor(public aPerformance: Perf, public play: Play) {}
 
   get amount(): number {
-    let result = 0;
-    switch (this.play.type) {
-      case "tragedy":
-        throw new Error(`unknown type: ${this.play.type}`);
-      case "comedy":
-        throw new Error(`unknown type: ${this.play.type}`);
-      default:
-        throw new Error(`unknown type: ${this.play.type}`);
-    }
-    return result;
+    throw new Error("サブクラスの責務");
   }
 
   get volumeCredits() {
