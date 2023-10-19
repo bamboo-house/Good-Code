@@ -50,7 +50,7 @@ export function createStatementData(invoice: Invoices, plays: Plays) {
       {
         ...aPerformance,
         play: calculator.aPlay,
-        amount: amountFor(aPerformance),
+        amount: calculator.amount,
         volumeCredits: volumeCreditsFor(aPerformance),
       }
     );
@@ -59,11 +59,6 @@ export function createStatementData(invoice: Invoices, plays: Plays) {
 
   function playFor(aPerformance: Perf): Play {
     return plays[aPerformance.playID];
-  }
-
-  function amountFor(aPerformance: Perf): number {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance))
-      .amount;
   }
 
   function volumeCreditsFor(aPerformance: Perf) {
