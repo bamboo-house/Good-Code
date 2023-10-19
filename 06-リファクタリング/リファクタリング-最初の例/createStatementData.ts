@@ -59,6 +59,7 @@ export function createStatementData(invoice: Invoices, plays: Plays) {
   return result;
 
   function enrichPerformance(aPerformance: Perf): EnrichPerf {
+    // ここのcalculatorはポリモーフィズム対象である。calculator.amountなど勝手に条件分岐してくれる
     const calculator = createPerformanceCalculator(
       aPerformance,
       playFor(aPerformance)
