@@ -1,6 +1,13 @@
 import { EnrichPerf, Invoices, Perf, Play, Plays } from "./statement";
 
-class PerformanceCalculator {
+interface IPerformanceCalculator {
+  aPerformance: Perf;
+  play: Play;
+  amount: number;
+  volumeCredits: number;
+}
+
+class PerformanceCalculator implements IPerformanceCalculator {
   constructor(public aPerformance: Perf, public play: Play) {}
 
   get amount(): number {
@@ -60,7 +67,7 @@ export function createStatementData(invoice: Invoices, plays: Plays) {
 
   function enrichPerformance(aPerformance: Perf): EnrichPerf {
     // ここのcalculatorはポリモーフィズム対象である。calculator.amountなど勝手に条件分岐してくれる
-    const calculator = createPerformanceCalculator(
+    const calculator: IPerformanceCalculator = createPerformanceCalculator(
       aPerformance,
       playFor(aPerformance)
     );
