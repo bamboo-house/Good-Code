@@ -34,6 +34,10 @@ class PerformanceCalculator {
   }
 }
 
+function createPerformanceCalculator(aPerformance: Perf, aPlay: Play) {
+  return new PerformanceCalculator(aPerformance, aPlay);
+}
+
 export function createStatementData(invoice: Invoices, plays: Plays) {
   const enrichPerf = invoice.performances.map(enrichPerformance);
   const result = {
@@ -45,7 +49,7 @@ export function createStatementData(invoice: Invoices, plays: Plays) {
   return result;
 
   function enrichPerformance(aPerformance: Perf): EnrichPerf {
-    const calculator = new PerformanceCalculator(
+    const calculator = createPerformanceCalculator(
       aPerformance,
       playFor(aPerformance)
     );
