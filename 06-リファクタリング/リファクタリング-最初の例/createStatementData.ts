@@ -1,15 +1,11 @@
 import { EnrichPerf, Invoices, Perf, Play, Plays } from "./statement";
 
 class PerformanceCalculator {
-  constructor(public aPerformance: Perf, public aPlay: Play) {
-    this.aPerformance = aPerformance;
-    this.aPlay = aPlay;
-  }
+  constructor(public aPerformance: Perf, public play: Play) {}
 
   get amount(): number {
     let result = 0;
-
-    switch (this.aPlay.type) {
+    switch (this.play.type) {
       case "tragedy":
         result = 40000;
         if (this.aPerformance.audience > 30) {
@@ -24,8 +20,16 @@ class PerformanceCalculator {
         result += 300 * this.aPerformance.audience;
         break;
       default:
-        throw new Error(`unknown type: ${this.aPlay.type}`);
+        throw new Error(`unknown type: ${this.play.type}`);
     }
+    return result;
+  }
+
+  get volumeCredits() {
+    let result = 0;
+    result += Math.max(this.aPerformance.audience - 30, 0);
+    if ("comedy" === this.play.type)
+      result += Math.floor(this.aPerformance.audience / 5);
     return result;
   }
 }
@@ -49,9 +53,9 @@ export function createStatementData(invoice: Invoices, plays: Plays) {
       {},
       {
         ...aPerformance,
-        play: calculator.aPlay,
+        play: calculator.play,
         amount: calculator.amount,
-        volumeCredits: volumeCreditsFor(aPerformance),
+        volumeCredits: calculator.volumeCredits,
       }
     );
     return result;
@@ -59,14 +63,6 @@ export function createStatementData(invoice: Invoices, plays: Plays) {
 
   function playFor(aPerformance: Perf): Play {
     return plays[aPerformance.playID];
-  }
-
-  function volumeCreditsFor(aPerformance: Perf) {
-    let result = 0;
-    result += Math.max(aPerformance.audience - 30, 0);
-    if ("comedy" === playFor(aPerformance).type)
-      result += Math.floor(aPerformance.audience / 5);
-    return result;
   }
 
   function totalVolumeCredits(enrichPerf: EnrichPerf[]) {
