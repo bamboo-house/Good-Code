@@ -1,4 +1,3 @@
-/* eslint-disable */
 function printOwing1(invoice: any) {
   printBanner();
   let outstanding = calculateOutstanding(invoice);
@@ -19,23 +18,4 @@ function printOwing2(invoice: any) {
     console.log(`name: ${invoice.customer}`);
     console.log(`amount: ${outstanding}`);
   }
-}
-
-/*
-
-
-
-
-
-
-
-
-*/
-
-function printBanner() {
-  throw new Error("Function not implemented.");
-}
-
-function calculateOutstanding(invoice: any) {
-  throw new Error("Function not implemented.");
 }
