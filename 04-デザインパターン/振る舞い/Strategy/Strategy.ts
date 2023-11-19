@@ -1,9 +1,10 @@
-export {}
+export {};
 
 /*
 - Strategyパターン
 - ロジックをプログラムから切り離して、独立したクラスにカプセル化する。クライアントはクラスの切り替えが簡単にできる
 - ダックタイピングぽい
+- Stateパターンと比べて、拡張しやすい
 - 使い所
   - 同じような振る舞いがあるとき
   - ロジックを切り替える条件分の塊がある場合に使用する
@@ -12,20 +13,19 @@ export {}
 
 */
 
-
 interface SortStrategy {
   sort(): void;
 }
 
 class BubbleSort implements SortStrategy {
   sort(): void {
-    console.log('バブルソート');
+    console.log("バブルソート");
   }
 }
 
 class InsertionSort implements SortStrategy {
   sort(): void {
-    console.log('挿入ソート');
+    console.log("挿入ソート");
   }
 }
 
@@ -56,4 +56,4 @@ function run() {
   sortContext.sort();
 }
 
-run()
+run();
